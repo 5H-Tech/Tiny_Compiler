@@ -251,6 +251,7 @@ namespace Tiny_Compiler
                 Errors.Error_List.Add(Lex);
             }
         }
+
         bool isIdentifier(string lex)
         {
             bool isValid = false;
@@ -266,6 +267,7 @@ namespace Tiny_Compiler
             }
             return isValid;
         }
+
         bool isArthimathic(string lex)
         {
             bool isValid = false;
@@ -280,6 +282,7 @@ namespace Tiny_Compiler
             }
             return isValid;
         }
+
         bool isboolean(string lex)
         {
             bool isValid = false;
@@ -294,6 +297,7 @@ namespace Tiny_Compiler
             }
             return isValid;
         }
+
         bool isstring(string lex)
         {
             bool isValid = false;
@@ -308,6 +312,7 @@ namespace Tiny_Compiler
             }
             return isValid;
         }
+
         bool iscondition(string lex)
         {
             bool isValid = false;
@@ -322,6 +327,7 @@ namespace Tiny_Compiler
             }
             return isValid;
         }
+
         bool iscomment(string lex)
         {
             bool isValid = false;
@@ -336,6 +342,7 @@ namespace Tiny_Compiler
             }
             return isValid;
         }
+
         bool isnumber(string lex)
         {
             bool isValid = false;
@@ -350,6 +357,7 @@ namespace Tiny_Compiler
             }
             return isValid;
         }
+
         bool isfloat(string lex)
         {
             bool isValid = false;
@@ -364,12 +372,14 @@ namespace Tiny_Compiler
             }
             return isValid;
         }
+
         bool isConstant(string lex)
         {
             bool isValid = true;
             // Check if the lex is a constant (Number) or not.
             return isValid;
         }
+
     }
 }
 
