@@ -42,13 +42,13 @@ namespace Tiny_Compiler
         {
 
         }
-        /*  void PrintLexemes()
-{
-for (int i = 0; i < Tiny_Compiler.Lexemes.Count; i++)
-{
-textBox2.Text += Tiny_Compiler.Lexemes.ElementAt(i);
-textBox2.Text += Environment.NewLine;
-}
-}*/
+         /*  void PrintLexemes()
+        {
+        for (int i = 0; i < Tiny_Compiler.Lexemes.Count; i++)
+        {
+        textBox2.Text += Tiny_Compiler.Lexemes.ElementAt(i);
+        textBox2.Text += Environment.NewLine;
+        }
+        }*/
     }
 }
