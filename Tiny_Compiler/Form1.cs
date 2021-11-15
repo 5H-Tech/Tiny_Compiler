@@ -40,7 +40,14 @@ namespace Tiny_Compiler
 
         private void button2_Click(object sender, EventArgs e)
         {
+            //dataGridView1.Rows.Add("dsfdf", "dddsf");
+            dataGridView1.Rows.Clear();
+        }
 
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            dataGridView1.Rows.Add("hady", "the Best");
+            
         }
          /*  void PrintLexemes()
         {
