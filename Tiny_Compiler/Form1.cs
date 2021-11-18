@@ -40,22 +40,24 @@ namespace Tiny_Compiler
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //dataGridView1.Rows.Add("dsfdf", "dddsf");
+            dataGridView1.DataSource = null;
             dataGridView1.Rows.Clear();
         }
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            dataGridView1.Rows.Add("hady", "the Best");
-            
+            string t = textBox1.Text.ToString();
+            Tiny_Compiler.Tiny_Scanner.StartScanning(t);
+            PrintTokens();
+            PrintErrors();
         }
-         /*  void PrintLexemes()
-        {
-        for (int i = 0; i < Tiny_Compiler.Lexemes.Count; i++)
-        {
-        textBox2.Text += Tiny_Compiler.Lexemes.ElementAt(i);
-        textBox2.Text += Environment.NewLine;
-        }
-        }*/
+        /*  void PrintLexemes()
+       {
+       for (int i = 0; i < Tiny_Compiler.Lexemes.Count; i++)
+       {
+       textBox2.Text += Tiny_Compiler.Lexemes.ElementAt(i);
+       textBox2.Text += Environment.NewLine;
+       }
+       }*/
     }
 }
