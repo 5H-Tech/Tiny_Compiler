@@ -297,7 +297,7 @@ namespace Tiny_Compiler
         bool isstring(string lex)
         {
             bool isValid = false;
-            var iden = new Regex("^\"(.*?)\"$");
+            var iden = new Regex("^\"(.*)\"$");
             if (iden.IsMatch(lex))
             {
                 isValid = true;

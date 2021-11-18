@@ -45,8 +45,7 @@ namespace Tiny_Compiler
 
         private void button2_Click(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = null;
-            dataGridView1.Rows.Clear();
+            
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -55,6 +54,12 @@ namespace Tiny_Compiler
             Tiny_Compiler.Tiny_Scanner.StartScanning(t);
             PrintTokens();
             PrintErrors();
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            dataGridView1.DataSource = null;
+            dataGridView1.Rows.Clear();
         }
         /*  void PrintLexemes()
        {
