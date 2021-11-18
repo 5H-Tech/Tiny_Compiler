@@ -23,8 +23,13 @@ namespace Tiny_Compiler
         }
         void PrintTokens()
         {
-            for (int i = 0; i < Tiny_Compiler.Tiny_Scanner.Tokens.Count; i++)
+            for (int i = 0; i < Tiny_Compiler.Tiny_Scanner.Tokens.Count; i++)   
             {
+                if(Tiny_Compiler.Tiny_Scanner.Tokens.ElementAt(i).token_type==Token_Class.Int||Tiny_Compiler.Tiny_Scanner.Tokens.ElementAt(i).token_type==Token_Class.Float||Tiny_Compiler.Tiny_Scanner.Tokens.ElementAt(i).token_type==Token_Class.String)
+                {
+                    dataGridView1.Rows.Add(Tiny_Compiler.Tiny_Scanner.Tokens.ElementAt(i).lex, "DataType("+Tiny_Compiler.Tiny_Scanner.Tokens.ElementAt(i).token_type+")");
+                }
+                else
                 dataGridView1.Rows.Add(Tiny_Compiler.Tiny_Scanner.Tokens.ElementAt(i).lex, Tiny_Compiler.Tiny_Scanner.Tokens.ElementAt(i).token_type);
             }
         }

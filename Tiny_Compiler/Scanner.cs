@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 public enum Token_Class
 {
-    Else, Endl, If, Integer, Number,
+    Else, Endl, If, Int, Number,FloatNum,
     Read, Then, Until, Repeat, Write, Comment, Return, Float, String, Elseif, Orsign,
     Dot, Semicolon, Comma, LParanthesis, RParanthesis, EqualOp, LessThanOp, Colon, ASSign, Andsign, END,
     GreaterThanOp, NotEqualOp, PlusOp, MinusOp, MultiplyOp, AndOp, OrOp, DivideOp, LeftPracit, RightPracit,
@@ -35,7 +35,7 @@ namespace Tiny_Compiler
             ReservedWords.Add("endl", Token_Class.Endl);
             ReservedWords.Add("else", Token_Class.Else);
             ReservedWords.Add("elseif", Token_Class.Elseif);
-            ReservedWords.Add("int", Token_Class.Integer);
+            ReservedWords.Add("int", Token_Class.Int);
             ReservedWords.Add("string", Token_Class.String);
             ReservedWords.Add("float", Token_Class.Float);
             ReservedWords.Add("read", Token_Class.Read);
@@ -45,6 +45,7 @@ namespace Tiny_Compiler
             ReservedWords.Add("repeat", Token_Class.Repeat);
             ReservedWords.Add("write", Token_Class.Write);
             ReservedWords.Add("end", Token_Class.END);
+          
 
             Operators.Add(".", Token_Class.Dot);
             Operators.Add(";", Token_Class.Semicolon);
@@ -242,7 +243,7 @@ namespace Tiny_Compiler
             }
             else if (isfloat(Lex))
             {
-                Tok.token_type = Token_Class.Float;
+                Tok.token_type = Token_Class.FloatNum;
                 Tokens.Add(Tok);
             }
             else
