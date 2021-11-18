@@ -43,11 +43,6 @@ namespace Tiny_Compiler
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void button1_Click_1(object sender, EventArgs e)
         {
             string t = textBox1.Text.ToString();
@@ -58,10 +53,17 @@ namespace Tiny_Compiler
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = null; 
+            Tiny_Compiler.Tiny_Scanner.Tokens.Clear();
             dataGridView1.Rows.Clear();
         }
-        /*  void PrintLexemes()
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            textBox2.Clear();
+            Errors.Error_List.Clear();
+        }
+        /*void PrintLexemes()
        {
        for (int i = 0; i < Tiny_Compiler.Lexemes.Count; i++)
        {
