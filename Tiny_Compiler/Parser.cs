@@ -66,7 +66,7 @@ namespace Tiny_Compiler
         Node Func_dec()
         {
             Node func_dec = new Node("Func_dec");
-            func_dec.Children.Add(Func_dec());
+            func_dec.Children.Add(Datatype());
             func_dec.Children.Add(match(Token_Class.Idenifier));
             func_dec.Children.Add(Arglist());
 
@@ -92,9 +92,26 @@ namespace Tiny_Compiler
         Node Arguments()
         {
             Node arguments = new Node("Arguments");
-
+            arguments.Children.Add(match(Token_Class.Idenifier));
+            arguments.Children.Add(Arg());
 
             return arguments;
+        }
+
+        Node Arg()
+        {
+            Node arg = new Node("Arg");
+
+            if (Token_Class.Idenifier == TokenStream[InputPointer].token_type)
+            {
+                arg.Children.Add(match(Token_Class.Comma));
+                arg.Children.Add(match(Token_Class.Idenifier));
+                arg.Children.Add(Arg());
+                return arg;
+            }
+
+            return null;
+
         }
 
         Node Datatype()
@@ -124,8 +141,45 @@ namespace Tiny_Compiler
         Node Body()
         {
             Node body = new Node("Body");
+            body.Children.Add(match(Token_Class.LeftPracit));
+            body.Children.Add(Stat_Seq());
+            body.Children.Add(match(Token_Class.RightPracit));
 
             return body;
+        }
+
+        Node Stat_Seq()
+        {
+            Node stat_seq = new Node("Stat_Seq");
+
+            stat_seq.Children.Add(Statement());
+            stat_seq.Children.Add(State());
+
+            return stat_seq;
+        }
+
+        Node State()
+        {
+            Node state = new Node("State");
+
+            if(Token_Class.Idenifier == TokenStream[InputPointer].token_type)
+            {
+                state.Children.Add(match(Token_Class.Idenifier));
+                state.Children.Add(Statement());
+                state.Children.Add(State());
+                return state;
+            }
+
+            return null;
+        }
+
+        Node Statement()
+        {
+            Node statement = new Node("Statement");
+
+            statement.Children.Add(Statement());
+
+            return statement;
         }
 
         Node MainFunc()
