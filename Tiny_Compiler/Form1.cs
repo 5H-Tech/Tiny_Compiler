@@ -12,14 +12,28 @@ namespace Tiny_Compiler
 {
     public partial class Form1 : Form
     {
+        public string[] rsrvdwrds = { "read", "write", "repeat", "until", "if", "elseif", "else", "then", "return", "endl", "while", "program", "main" };
+        public string[] dtatyps = { "int", "float", "string" };
+
+        public void CheckKeyword(string word, Color color, int startIndex)
+        {
+            if (this.richTextBox1.Text.Contains(word))
+            {
+                int index = -1;
+                int selectStart = this.richTextBox1.SelectionStart;
+
+                while ((index = this.richTextBox1.Text.IndexOf(word, (index + 1))) != -1)
+                {
+                    this.richTextBox1.Select((index + startIndex), word.Length);
+                    this.richTextBox1.SelectionColor = color;
+                    this.richTextBox1.Select(selectStart, 0);
+                    this.richTextBox1.SelectionColor = Color.White;
+                }
+            }
+        }
         public Form1()
         {
             InitializeComponent();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
         }
         void PrintTokens()
         {
@@ -42,34 +56,36 @@ namespace Tiny_Compiler
                 textBox2.Text += "\r\n";
             }
         }
+    
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            string t = textBox1.Text.ToString();
-            Tiny_Compiler.Tiny_Scanner.StartScanning(t);
+            textBox2.Clear();
+            string Code = richTextBox1.Text.ToLower();
+            Tiny_Compiler.Start_Compiling(Code);
             PrintTokens();
+            treeView1.Nodes.Add(Parser.PrintParseTree(Tiny_Compiler.treeroot));
             PrintErrors();
         }
 
-        private void button2_Click_1(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = null; 
-            Tiny_Compiler.Tiny_Scanner.Tokens.Clear();
+            richTextBox1.Text = "";
+            textBox2.Text = "";
+            Tiny_Compiler.TokenStream.Clear();
             dataGridView1.Rows.Clear();
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            textBox2.Clear();
+            treeView1.Nodes.Clear();
             Errors.Error_List.Clear();
         }
-        /*void PrintLexemes()
-       {
-       for (int i = 0; i < Tiny_Compiler.Lexemes.Count; i++)
-       {
-       textBox2.Text += Tiny_Compiler.Lexemes.ElementAt(i);
-       textBox2.Text += Environment.NewLine;
-       }
-       }*/
+
+
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            for (int i = 0; i < rsrvdwrds.Length; i++) this.CheckKeyword(rsrvdwrds[i], Color.FromArgb(57, 135, 214), 0);
+            for (int i = 0; i < dtatyps.Length; i++) this.CheckKeyword(dtatyps[i], Color.FromArgb(69, 201, 153), 0);
+        }
+
+      
     }
 }
