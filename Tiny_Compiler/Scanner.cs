@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 public enum Token_Class
 {
-    Else, Endl, If, Int, Number,FloatNum,
+    Else, Endl, If, Int, Number,FloatNum,Main,
     Read, Then, Until, Repeat, Write, Comment, Return, Float, String, Elseif, Orsign,
     Dot, Semicolon, Comma, LParanthesis, RParanthesis, EqualOp, LessThanOp, Colon, ASSign, Andsign, END,
     GreaterThanOp, NotEqualOp, PlusOp, MinusOp, MultiplyOp, AndOp, OrOp, DivideOp, LeftPracit, RightPracit,
@@ -40,6 +40,7 @@ namespace Tiny_Compiler
             ReservedWords.Add("float", Token_Class.Float);
             ReservedWords.Add("read", Token_Class.Read);
             ReservedWords.Add("return", Token_Class.Return);
+            ReservedWords.Add("main", Token_Class.Main);
             ReservedWords.Add("then", Token_Class.Then);
             ReservedWords.Add("until", Token_Class.Until);
             ReservedWords.Add("repeat", Token_Class.Repeat);

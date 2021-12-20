@@ -14,7 +14,6 @@ C:\Users\Hady Ahmed\Documents\GitHub\Tiny_Compiler\Tiny_Compiler\obj\Debug\Tiny_
 C:\Users\Hady Ahmed\Documents\GitHub\Tiny_Compiler\Tiny_Compiler\bin\Debug\Tiny_Compiler.exe
 C:\Users\Hady Ahmed\Documents\GitHub\Tiny_Compiler\Tiny_Compiler\bin\Debug\Tiny_Compiler.pdb
 C:\Users\Hady Ahmed\Documents\GitHub\Tiny_Compiler\Tiny_Compiler\obj\Debug\Tiny_Compiler.csprojResolveAssemblyReference.cache
-C:\Users\Hady Ahmed\Documents\GitHub\Tiny_Compiler\Tiny_Compiler\obj\Debug\Tiny_Compiler.Form1.resources
 C:\Users\Hady Ahmed\Documents\GitHub\Tiny_Compiler\Tiny_Compiler\obj\Debug\Tiny_Compiler.Form2.resources
 C:\Users\Hady Ahmed\Documents\GitHub\Tiny_Compiler\Tiny_Compiler\obj\Debug\Tiny_Compiler.Properties.Resources.resources
 C:\Users\Hady Ahmed\Documents\GitHub\Tiny_Compiler\Tiny_Compiler\obj\Debug\Tiny_Compiler.csproj.GenerateResource.Cache
@@ -28,3 +27,4 @@ C:\Users\hadi\Documents\GitHub\Tiny_Compiler\Tiny_Compiler\obj\Debug\Tiny_Compil
 C:\Users\hadi\Documents\GitHub\Tiny_Compiler\Tiny_Compiler\obj\Debug\Tiny_Compiler.Form2.resources
 C:\Users\hadi\Documents\GitHub\Tiny_Compiler\Tiny_Compiler\obj\Debug\Tiny_Compiler.Properties.Resources.resources
 C:\Users\hadi\Documents\GitHub\Tiny_Compiler\Tiny_Compiler\obj\Debug\Tiny_Compiler.csproj.GenerateResource.Cache
+C:\Users\Hady Ahmed\Documents\GitHub\Tiny_Compiler\Tiny_Compiler\obj\Debug\Tiny_Compiler.Form1.resources

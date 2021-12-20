@@ -10,10 +10,26 @@ using System.Windows.Forms;
 
 namespace Tiny_Compiler
 {
+    
     public partial class Form1 : Form
     {
-        public string[] rsrvdwrds = { "read", "write", "repeat", "until", "if", "elseif", "else", "then", "return", "endl", "while", "program", "main" };
-        public string[] dtatyps = { "int", "float", "string" };
+        public string[] rsrvdwrds = { "read", 
+                                       "write", 
+                                       "repeat", 
+                                       "until", 
+                                       "if", 
+                                       "elseif", 
+                                       "else", 
+                                       "then", 
+                                       "return", 
+                                       "endl", 
+                                       "while", 
+                                       "program", 
+                                       "main" };
+
+        public string[] dtatyps = { "int",
+                                    "float", 
+                                    "string" };
 
         public void CheckKeyword(string word, Color color, int startIndex)
         {
@@ -35,11 +51,14 @@ namespace Tiny_Compiler
         {
             InitializeComponent();
         }
+        Input getInputCode;
         void PrintTokens()
         {
             for (int i = 0; i < Tiny_Compiler.Tiny_Scanner.Tokens.Count; i++)   
             {
-                if(Tiny_Compiler.Tiny_Scanner.Tokens.ElementAt(i).token_type==Token_Class.Int||Tiny_Compiler.Tiny_Scanner.Tokens.ElementAt(i).token_type==Token_Class.Float||Tiny_Compiler.Tiny_Scanner.Tokens.ElementAt(i).token_type==Token_Class.String)
+                if(Tiny_Compiler.Tiny_Scanner.Tokens.ElementAt(i).token_type==Token_Class.Int
+                    ||Tiny_Compiler.Tiny_Scanner.Tokens.ElementAt(i).token_type==Token_Class.Float
+                    ||Tiny_Compiler.Tiny_Scanner.Tokens.ElementAt(i).token_type==Token_Class.String)
                 {
                     dataGridView1.Rows.Add(Tiny_Compiler.Tiny_Scanner.Tokens.ElementAt(i).lex, "DataType("+Tiny_Compiler.Tiny_Scanner.Tokens.ElementAt(i).token_type+")");
                 }
@@ -84,6 +103,36 @@ namespace Tiny_Compiler
         {
             for (int i = 0; i < rsrvdwrds.Length; i++) this.CheckKeyword(rsrvdwrds[i], Color.FromArgb(57, 135, 214), 0);
             for (int i = 0; i < dtatyps.Length; i++) this.CheckKeyword(dtatyps[i], Color.FromArgb(69, 201, 153), 0);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog op = new OpenFileDialog();
+            try
+            {
+                DialogResult res = op.ShowDialog();
+                string name = op.FileName;
+                if (res == System.Windows.Forms.DialogResult.OK)
+                {
+                    richTextBox1.Text = System.IO.File.ReadAllText(name);
+                    getInputCode = new Input(name);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("error");
+
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            treeView1.ExpandAll();
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
 
       
