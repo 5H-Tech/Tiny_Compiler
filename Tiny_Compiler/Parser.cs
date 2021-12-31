@@ -61,7 +61,7 @@ namespace Tiny_Compiler
                 mainFunc.Children.Add(Body());
                 return mainFunc;
             }
-            Errors.Error_List.Add("Parsing Error: You must enter A Main Function \r\n");
+            Errors.Error_List.Add("Parsing Error: YOU MUST ENTER THE \"int main()\" function  \r\n");
             return null;
 
         }
@@ -121,7 +121,7 @@ namespace Tiny_Compiler
         {
             Node func_body = new Node("Body");
             func_body.Children.Add(match(Token_Class.LeftPracit));
-            func_body.Children.Add(Stat_Seq());
+            //func_body.Children.Add(Stat_Seq());
             func_body.Children.Add(match(Token_Class.RightPracit));
             return func_body;
         }
@@ -299,7 +299,6 @@ namespace Tiny_Compiler
             return multiOp;
         }
 
-
         Node RepeatStatement()
         {
             Node RepeatStatement = new Node("RepeatStatement");
@@ -309,7 +308,6 @@ namespace Tiny_Compiler
             RepeatStatement.Children.Add(Expression());
             return RepeatStatement;
         }
-
 
         Node AssignStatement()
         {
@@ -381,7 +379,6 @@ namespace Tiny_Compiler
 
         }
 
-
         Node FunCall()
         {
             Node FunCall = new Node("FunCall");
@@ -409,8 +406,6 @@ namespace Tiny_Compiler
 
         }
 
-
-
         Node ArgumentsCall()
         {
             Node ArgumentsCall = new Node("ArgumentsCall");
@@ -425,7 +420,6 @@ namespace Tiny_Compiler
 
             return null;
         }
-
 
         Node ArgCall()
         {
@@ -442,7 +436,6 @@ namespace Tiny_Compiler
             return null;
         }
 
-
         Node Return_statement()
         {
             Node Return_statement = new Node("Return_statement");
@@ -458,9 +451,6 @@ namespace Tiny_Compiler
             return null;
         }
 
-
-
-
         Node Expression()
         {
             Node Ex = new Node("expression");
@@ -469,6 +459,7 @@ namespace Tiny_Compiler
 
             return Ex;
         }
+
         Node Term()
         {
             Node term = new Node("term");
@@ -513,40 +504,38 @@ namespace Tiny_Compiler
             return exp;
         }
 
-
-
-
         Node Arglist()
         {
             Node arglist = new Node("Arglist");
-            arglist.Children.Add(match(Token_Class.LParanthesis));
+            
             if (InputPointer < TokenStream.Count)
             {
-                if (Token_Class.Int == TokenStream[InputPointer].token_type
-                || Token_Class.Float == TokenStream[InputPointer].token_type
-                || Token_Class.String == TokenStream[InputPointer].token_type)
-                {
-                    arglist.Children.Add(Arguments());
-                    arglist.Children.Add(match(Token_Class.RParanthesis));
-                }
-                else
-                {
-                    arglist.Children.Add(match(Token_Class.RParanthesis));
-                }
+                arglist.Children.Add(match(Token_Class.LParanthesis));
+                arglist.Children.Add(Arguments());
+                arglist.Children.Add(match(Token_Class.RParanthesis));
                 return arglist;
             }
-            Errors.Error_List.Add("You must enter aruments \r\n");
+            Errors.Error_List.Add("Parsing Error: YOU MUST ENTER THE ARGUMENT LIST  \r\n");
             return null;
-
         }
         Node Arguments()
         {
-            Node arguments = new Node("Arguments");
-            arguments.Children.Add(Datatype());
-            arguments.Children.Add(match(Token_Class.Idenifier));
-            arguments.Children.Add(Arg());
-
-            return arguments;
+            if (InputPointer < TokenStream.Count)
+            {
+                if (Token_Class.RParanthesis != TokenStream[InputPointer].token_type)
+                {
+                    Node arguments = new Node("Arguments");
+                    arguments.Children.Add(Datatype());
+                    arguments.Children.Add(match(Token_Class.Idenifier));
+                    arguments.Children.Add(Arg());
+                    return arguments;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            return null;
         }
 
         Node Arg()
@@ -574,23 +563,30 @@ namespace Tiny_Compiler
                 if (Token_Class.Int == TokenStream[InputPointer].token_type)
                 {
                     datatype.Children.Add(match(Token_Class.Int));
+                    return datatype;
                 }
                 else if (Token_Class.Float == TokenStream[InputPointer].token_type)
                 {
                     datatype.Children.Add(match(Token_Class.Float));
+                    return datatype;
                 }
                 else if (Token_Class.String == TokenStream[InputPointer].token_type)
                 {
                     datatype.Children.Add(match(Token_Class.String));
+                    return datatype;
                 }
-                return datatype;
+
+                Errors.Error_List.Add("Parsing Error: YOU HAVE TO ENTER DATAEA TYPE  \r\n");
+                return null;
             }
-            Errors.Error_List.Add("YOU HAVE TO ENTER DATAEA TYPE  \r\n");
-            return null;
+            else
+            {
+                Errors.Error_List.Add("Parsing Error: YOU HAVE TO ENTER DATAEA TYPE  \r\n");
+                return null;
+            }
+            
 
         }
-
-
 
 
         public Node match(Token_Class ExpectedToken)
