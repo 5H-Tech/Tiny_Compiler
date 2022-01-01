@@ -21,7 +21,21 @@ namespace Tiny_Compiler
 
             Tiny_Scanner.StartScanning(SourceCode);
             //Parser
-            Tiny_Parser.StartParsing(TokenStream);
+            List<Token> tmp = new List<Token>();
+            for (int i = 0; i < TokenStream.Count; i++)
+            {
+                Token item = TokenStream[i];
+                if (item.token_type == Token_Class.Comment)
+                {
+                    continue;
+                }
+                else
+                {
+                    tmp.Add(item); 
+                }
+
+            }
+            Tiny_Parser.StartParsing(tmp);
             treeroot = Tiny_Parser.root;
             //Sematic Analysis
         }

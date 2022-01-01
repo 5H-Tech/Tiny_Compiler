@@ -1,0 +1,31 @@
+int sum(int a, int b)
+{
+	return a + b;
+}
+int main()
+{
+	int val, counter;
+	read val;
+	counter:=0;                                                                                
+	repeat                                                                                
+		write "Iteration number [";
+		write counter;
+		write "] the value of x = ";
+		write val;
+		
+	until val > 1;                                                                                  
+                                                                              
+	string s := "number of Iterations = ";
+	write s;                                                                                
+	
+	write counter;
+	
+	if  z1 > 5 || z1 < counter && z1 = 1 then 
+		write z1;
+	elseif z1 < 5 then
+		z1 := 5;
+	else
+         	z1 := counter;
+	end;
+	return 0;
+}

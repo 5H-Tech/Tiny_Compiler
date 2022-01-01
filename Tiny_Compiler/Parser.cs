@@ -284,18 +284,47 @@ namespace Tiny_Compiler
 
         Node Condition()
         {
-            Node Condition = new Node("Condition");
+            Node condition = new Node("Condition");
 
-            Condition.Children.Add(Expression());
-            Condition.Children.Add(RelOp());
-            Condition.Children.Add(Expression());
+            condition.Children.Add(Expression());
+            condition.Children.Add(RelOp());
+            condition.Children.Add(Expression());
+            condition.Children.Add(ConditionClosuer());
 
-            return Condition;
+            return condition;
+        }
+        Node ConditionClosuer()
+        {
+            Node conditionClosuer = new Node("Condition-Closuer");
+            if (Token_Class.AndOp == TokenStream[InputPointer].token_type
+                || Token_Class.OrOp == TokenStream[InputPointer].token_type)
+            {
+                conditionClosuer.Children.Add(ConditionOps());
+                conditionClosuer.Children.Add(Condition());
+                return conditionClosuer;
+            }
+            else
+            {
+                return null;
+            }           
         }
 
+        Node ConditionOps()
+        {
+            Node conditionOps = new Node("Condition-Oprators");
+            if (Token_Class.AndOp == TokenStream[InputPointer].token_type)
+            {
+                conditionOps.Children.Add(match(Token_Class.AndOp));
+            }
+            else
+            {
+                conditionOps.Children.Add(match(Token_Class.OrOp));
+            }
+            return conditionOps;
+        }
         Node Factor()
         {
-            Node factor = new Node("factor");
+            Node factor = new Node("Factor");
             if (Token_Class.Idenifier == TokenStream[InputPointer].token_type)
             {
                 factor.Children.Add(match(Token_Class.Idenifier));
@@ -383,7 +412,7 @@ namespace Tiny_Compiler
             RepeatStatement.Children.Add(match(Token_Class.Repeat));
             RepeatStatement.Children.Add(Stat_Seq());
             RepeatStatement.Children.Add(match(Token_Class.Until));
-            RepeatStatement.Children.Add(Expression());
+            RepeatStatement.Children.Add(Condition());
             return RepeatStatement;
         }
 
@@ -520,7 +549,7 @@ namespace Tiny_Compiler
             {
                 Return_statement.Children.Add(match(Token_Class.Return));
                 Return_statement.Children.Add(Expression());
-                Return_statement.Children.Add(match(Token_Class.Semicolon));
+                //Return_statement.Children.Add(match(Token_Class.Semicolon));
                 return Return_statement;
             }
 
@@ -547,18 +576,6 @@ namespace Tiny_Compiler
             Node exp = new Node("exp");
             exp.Children.Add(Term());
             exp.Children.Add(E());
-            //if (Token_Class.PlusOp == TokenStream[InputPointer].token_type
-            //   || Token_Class.MinusOp == TokenStream[InputPointer].token_type)
-            //{
-            //    exp.Children.Add(AddOp());
-            //    exp.Children.Add(Term());
-            //    exp.Children.Add(Exp());
-            //}
-            //else
-            //{
-            //    return null;
-            //}
-
             return exp;
         }
         Node E()

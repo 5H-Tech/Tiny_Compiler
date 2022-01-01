@@ -91,7 +91,7 @@ namespace Tiny_Compiler
 
         private void button2_Click(object sender, EventArgs e)
         {
-            richTextBox1.Text = "";
+            //richTextBox1.Text = "";
             textBox2.Text = "";
             Tiny_Compiler.TokenStream.Clear();
             dataGridView1.Rows.Clear();
