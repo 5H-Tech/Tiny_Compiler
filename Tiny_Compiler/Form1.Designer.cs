@@ -88,8 +88,9 @@
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox2.Size = new System.Drawing.Size(314, 93);
+            this.textBox2.Size = new System.Drawing.Size(600, 93);
             this.textBox2.TabIndex = 7;
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // button2
             // 
@@ -106,7 +107,7 @@
             this.treeView1.Location = new System.Drawing.Point(637, 34);
             this.treeView1.Margin = new System.Windows.Forms.Padding(2);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(314, 326);
+            this.treeView1.Size = new System.Drawing.Size(600, 326);
             this.treeView1.TabIndex = 10;
             // 
             // richTextBox1
@@ -124,7 +125,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(776, 9);
+            this.label4.Location = new System.Drawing.Point(919, 9);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(59, 13);
             this.label4.TabIndex = 15;
@@ -173,7 +174,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(760, 365);
+            this.button4.Location = new System.Drawing.Point(922, 365);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 18;
@@ -185,7 +186,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(962, 510);
+            this.ClientSize = new System.Drawing.Size(1248, 510);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label3);
@@ -200,6 +201,7 @@
             this.Controls.Add(this.treeView1);
             this.Name = "Form1";
             this.Text = " ";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

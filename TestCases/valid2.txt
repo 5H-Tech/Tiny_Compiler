@@ -1,0 +1,18 @@
+
+int sum(int a, int b)
+{
+	return a + b;
+}
+int main()
+{
+	int val, counter;
+	read val;
+	counter:=0;  
+            int val := sum (a,c);                                                                  
+             float z1 := 3*2*2+1/2-5.3;                                                  
+	write s;                                                                                
+	write s;   
+             string z2 := "some one";                                                                 
+	write counter;
+	return 0;
+}

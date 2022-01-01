@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace Tiny_Compiler
 {
@@ -71,8 +72,9 @@ namespace Tiny_Compiler
         {
             for (int i = 0; i < Errors.Error_List.Count; i++)
             {
-                textBox2.Text += Errors.Error_List[i];
-                textBox2.Text += "\r\n";
+                if (Errors.Error_List[i] != "\t")
+                    textBox2.Text += Errors.Error_List[i]+"\r\n";
+                //textBox2.Text += "\r\n";
             }
         }
     
@@ -135,6 +137,18 @@ namespace Tiny_Compiler
 
         }
 
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            AllocConsole();
+        }
+        [DllImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool AllocConsole();
       
     }
 }

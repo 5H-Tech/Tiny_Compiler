@@ -22,9 +22,6 @@ namespace Tiny_Compiler
         int InputPointer = 0;
         List<Token> TokenStream;
         public Node root;
-
-
-
         // Implement your logic here
         public Node StartParsing(List<Token> TokenStream)
         {
@@ -42,10 +39,7 @@ namespace Tiny_Compiler
 
             program.Children.Add(UserFunc());
             program.Children.Add(MianFunc());
-            //program.Children.Add(Function());
-            //program.Children.Add(MianFunc());
-            //program.Children.Add(match(Token_Class.Dot));
-            MessageBox.Show("Success");
+            //MessageBox.Show("Success");
             return program;
         }
 
@@ -53,19 +47,13 @@ namespace Tiny_Compiler
 
         Node MianFunc()
         {
-            if (InputPointer < TokenStream.Count)
-            {
-                Node mainFunc = new Node("Main Function");
-                mainFunc.Children.Add(Datatype());
-                mainFunc.Children.Add(match(Token_Class.Main));
-                mainFunc.Children.Add(match(Token_Class.LParanthesis));
-                mainFunc.Children.Add(match(Token_Class.RParanthesis));
-                mainFunc.Children.Add(Body());
-                return mainFunc;
-            }
-            //Errors.Error_List.Add("Parsing Error: YOU MUST ENTER THE \"int main()\" function  \r\n");
-            return null;
-
+            Node mainFunc = new Node("Main Function");
+            mainFunc.Children.Add(Datatype());
+            mainFunc.Children.Add(match(Token_Class.Main));
+            mainFunc.Children.Add(match(Token_Class.LParanthesis));
+            mainFunc.Children.Add(match(Token_Class.RParanthesis));
+            mainFunc.Children.Add(Body());
+            return mainFunc;
         }
         Node UserFunc()
         {
@@ -85,10 +73,8 @@ namespace Tiny_Compiler
                 }
             }
             return userFunc;
-
-
         }
-       
+
         Node Func_dec()
         {
             Node func_dec = new Node("Func_dec");
@@ -102,14 +88,14 @@ namespace Tiny_Compiler
         {
             Node arglist = new Node("Arglist");
 
-          
-                arglist.Children.Add(match(Token_Class.LParanthesis));
-                arglist.Children.Add(Arguments());
-                arglist.Children.Add(match(Token_Class.RParanthesis));
-                return arglist;
-            
-            Errors.Error_List.Add("Parsing Error: YOU MUST ENTER THE ARGUMENT LIST  \r\n");
-            return null;
+
+            arglist.Children.Add(match(Token_Class.LParanthesis));
+            arglist.Children.Add(Arguments());
+            arglist.Children.Add(match(Token_Class.RParanthesis));
+            return arglist;
+
+            //Errors.Error_List.Add("Parsing Error: YOU MUST ENTER THE ARGUMENT LIST  \r\n");
+            //return null;
         }
         Node Arguments()
         {
@@ -148,11 +134,6 @@ namespace Tiny_Compiler
 
         }
 
-
-
-
-
-
         Node Body()
         {
             Node func_body = new Node("Body");
@@ -162,35 +143,13 @@ namespace Tiny_Compiler
             return func_body;
         }
 
-        Node Equation()
-        {
-            Node Equation = new Node("Equation");
-            Equation.Children.Add(Term());
-            Equation.Children.Add(Equ());
-            
-            return Equation;
-        }
-
-        Node Equ()
-        {
-            if (Token_Class.AndOp == TokenStream[InputPointer].token_type || Token_Class.MinusOp == TokenStream[InputPointer].token_type)
-            {
-                Node Equa = new Node("Equa");
-                Equa.Children.Add(AddOp());
-                Equa.Children.Add(Term());
-                Equa.Children.Add(Equ());
-                return Equa;
-            }
-            return null;
-        }
 
 
-//-----------------------------  Enf of Function ----------------------------------
+
+        //-----------------------------  Enf of Function ----------------------------------
 
 
-//------------------------- Body ----------------------------------
-
-
+        //------------------------- Body ----------------------------------
 
         Node Stat_Seq()
         {
@@ -228,9 +187,9 @@ namespace Tiny_Compiler
             {
                 statement.Children.Add(RepeatStatement());
             }
-            else if (Token_Class.ASSign == TokenStream[InputPointer].token_type)
+            else if (Token_Class.Idenifier == TokenStream[InputPointer].token_type)
             {
-                statement.Children.Add(AssignStatement());
+                statement.Children.Add(Fun_or_identfier());
             }
             else if (Token_Class.Read == TokenStream[InputPointer].token_type)
             {
@@ -244,21 +203,38 @@ namespace Tiny_Compiler
             {
                 statement.Children.Add(Return_statement());
             }
-            else if (Token_Class.Idenifier == TokenStream[InputPointer].token_type)
-            {
-                statement.Children.Add(FunCall());
-            }
+            
             else if (Token_Class.Int == TokenStream[InputPointer].token_type || Token_Class.String == TokenStream[InputPointer].token_type || Token_Class.Float == TokenStream[InputPointer].token_type)
             {
-                statement.Children.Add(Func_dec());
+                statement.Children.Add(DeclStatement());
             }
             return statement;
         }
 
-//----------------------- End of Body -----------------------------
+       
+        //----------------------- End of Body -----------------------------
 
-//----------------------- Statements ------------------------------
+        //----------------------- Statements ------------------------------
 
+        Node Fun_or_identfier()
+        {
+            string s = "Function call or Assign Statement";
+
+            Node fun_or_id = new Node(s);
+            fun_or_id.Children.Add(match(Token_Class.Idenifier));
+            if (Token_Class.LParanthesis != TokenStream[InputPointer].token_type)
+            {
+                fun_or_id.Children.Add(AssignStatement());
+                return fun_or_id;
+            }
+            else if (Token_Class.LParanthesis == TokenStream[InputPointer].token_type)
+            {
+                fun_or_id.Children.Add(FunCall());
+                return fun_or_id;
+            }
+            else
+                return null;
+        }
 
 
         Node If_statement()
@@ -272,7 +248,6 @@ namespace Tiny_Compiler
             return If_statement;
         }
 
-
         Node ElseIf_statement()
         {
             Node ElseIf_statement = new Node("ElseIf_statement");
@@ -284,7 +259,6 @@ namespace Tiny_Compiler
             ElseIf_statement.Children.Add(ElseClause());
             return ElseIf_statement;
         }
-
 
         Node ElseClause()
         {
@@ -299,15 +273,14 @@ namespace Tiny_Compiler
             {
                 ElseClause.Children.Add(ElseIf_statement());
             }
-            else 
+            else
             {
                 ElseClause.Children.Add(match(Token_Class.END));
             }
-          
+
 
             return ElseClause;
         }
-    
 
         Node Condition()
         {
@@ -320,24 +293,30 @@ namespace Tiny_Compiler
             return Condition;
         }
 
-       
-
-
         Node Factor()
         {
             Node factor = new Node("factor");
             if (Token_Class.Idenifier == TokenStream[InputPointer].token_type)
             {
                 factor.Children.Add(match(Token_Class.Idenifier));
+                if (Token_Class.LParanthesis == TokenStream[InputPointer].token_type)
+                {
+                    factor.Children.Add(FunCall());
+                }
             }
 
-            else if (Token_Class.Constant == TokenStream[InputPointer].token_type)
+            else if (Token_Class.Number == TokenStream[InputPointer].token_type)
             {
-                factor.Children.Add(match(Token_Class.Constant));
+                factor.Children.Add(match(Token_Class.Number));
+            }
+            else if (Token_Class.FloatNum == TokenStream[InputPointer].token_type)
+            {
+                factor.Children.Add(match(Token_Class.FloatNum));
             }
 
             return factor;
         }
+
 
         Node RelOp()
         {
@@ -411,7 +390,7 @@ namespace Tiny_Compiler
         Node AssignStatement()
         {
             Node AssignStatement = new Node("AssignStatement");
-            AssignStatement.Children.Add(match(Token_Class.Idenifier));
+            //AssignStatement.Children.Add(match(Token_Class.Idenifier));
             AssignStatement.Children.Add(match(Token_Class.ASSign));
             AssignStatement.Children.Add(Expression());
             return AssignStatement;
@@ -442,7 +421,7 @@ namespace Tiny_Compiler
             Node DeclStatement = new Node("DeclStatement");
 
             DeclStatement.Children.Add(Datatype());
-            DeclStatement.Children.Add(match(Token_Class.Idenifier));
+            DeclStatement.Children.Add(Id());
 
             return DeclStatement;
         }
@@ -450,17 +429,13 @@ namespace Tiny_Compiler
         Node Id()
         {
             Node Id = new Node("Id");
-
-            if (Token_Class.Idenifier == TokenStream[InputPointer].token_type)
+            Id.Children.Add(match(Token_Class.Idenifier));
+            if (Token_Class.ASSign == TokenStream[InputPointer].token_type)
             {
-                Id.Children.Add(match(Token_Class.Idenifier));
-            }
-            else
-            {
-
                 Id.Children.Add(AssignStatement());
-                Id.Children.Add(IdClause());
+
             }
+            Id.Children.Add(IdClause());
 
             return Id;
         }
@@ -469,8 +444,9 @@ namespace Tiny_Compiler
         {
             Node IdClause = new Node("IdClause");
 
-            if (Token_Class.Idenifier == TokenStream[InputPointer].token_type)
+            if (Token_Class.Comma == TokenStream[InputPointer].token_type)
             {
+                IdClause.Children.Add(match(Token_Class.Comma));
                 IdClause.Children.Add(Id());
                 return IdClause;
             }
@@ -481,7 +457,7 @@ namespace Tiny_Compiler
         Node FunCall()
         {
             Node FunCall = new Node("FunCall");
-            FunCall.Children.Add(match(Token_Class.Idenifier));
+            //FunCall.Children.Add(match(Token_Class.Idenifier));
             FunCall.Children.Add(CallArgList());
             return FunCall;
         }
@@ -495,6 +471,7 @@ namespace Tiny_Compiler
 
             if (Token_Class.Idenifier == TokenStream[InputPointer].token_type)
             {
+                CallArgList.Children.Add(match(Token_Class.Idenifier));
                 CallArgList.Children.Add(ArgumentsCall());
             }
 
@@ -511,7 +488,7 @@ namespace Tiny_Compiler
 
             if (Token_Class.Comma == TokenStream[InputPointer].token_type)
             {
-
+                ArgumentsCall.Children.Add(match(Token_Class.Comma));
                 ArgumentsCall.Children.Add(match(Token_Class.Idenifier));
                 ArgumentsCall.Children.Add(ArgCall());
                 return ArgumentsCall;
@@ -553,11 +530,72 @@ namespace Tiny_Compiler
         Node Expression()
         {
             Node Ex = new Node("expression");
-            Ex.Children.Add(Term());
-            Ex.Children.Add(Exp());
-
+            //Ex.Children.Add(Term());
+            if (Token_Class.String == TokenStream[InputPointer].token_type)
+            {
+                Ex.Children.Add(match(Token_Class.String));
+            }
+            else
+            {
+                Ex.Children.Add(Exp());
+            }
             return Ex;
         }
+
+        Node Exp()
+        {
+            Node exp = new Node("exp");
+            exp.Children.Add(Term());
+            exp.Children.Add(E());
+            //if (Token_Class.PlusOp == TokenStream[InputPointer].token_type
+            //   || Token_Class.MinusOp == TokenStream[InputPointer].token_type)
+            //{
+            //    exp.Children.Add(AddOp());
+            //    exp.Children.Add(Term());
+            //    exp.Children.Add(Exp());
+            //}
+            //else
+            //{
+            //    return null;
+            //}
+
+            return exp;
+        }
+        Node E()
+        {
+            Node e = new Node("E");
+
+            if (Token_Class.PlusOp == TokenStream[InputPointer].token_type)
+            {
+                e.Children.Add(Equ());
+                return e;
+            }
+            return null;
+
+        }
+
+        Node Equation()
+        {
+            Node Equation = new Node("Equation");
+            Equation.Children.Add(Term());
+            Equation.Children.Add(Equ());
+
+            return Equation;
+        }
+
+        Node Equ()
+        {
+            if (Token_Class.PlusOp == TokenStream[InputPointer].token_type || Token_Class.MinusOp == TokenStream[InputPointer].token_type)
+            {
+                Node Equa = new Node("Equa");
+                Equa.Children.Add(AddOp());
+                Equa.Children.Add(Term());
+                Equa.Children.Add(Equ());
+                return Equa;
+            }
+            return null;
+        }
+
 
         Node Term()
         {
@@ -571,40 +609,20 @@ namespace Tiny_Compiler
         Node Ter()
         {
             Node ter = new Node("ter");
-            if (Token_Class.MultiplyOp == TokenStream[InputPointer].token_type)
+            if (Token_Class.MultiplyOp == TokenStream[InputPointer].token_type ||
+                Token_Class.DivideOp == TokenStream[InputPointer].token_type)
             {
                 ter.Children.Add(MultiOp());
                 ter.Children.Add(Factor());
                 ter.Children.Add(Ter());
+                return ter;
             }
             else
             {
                 return null;
             }
 
-            return ter;
         }
-
-        Node Exp()
-        {
-            Node exp = new Node("exp");
-            if (Token_Class.PlusOp == TokenStream[InputPointer].token_type
-               || Token_Class.MinusOp == TokenStream[InputPointer].token_type)
-            {
-                exp.Children.Add(AddOp());
-                exp.Children.Add(Term());
-                exp.Children.Add(Exp());
-            }
-            else
-            {
-                return null;
-            }
-
-            return exp;
-        }
-
-      
-         
 
         Node Datatype()
         {
@@ -635,11 +653,11 @@ namespace Tiny_Compiler
                 Errors.Error_List.Add("Parsing Error: YOU HAVE TO ENTER DATAEA TYPE  \r\n");
                 return null;
             }
-            
+
 
         }
 
-
+        //---------------------------------------------------------------------------------------------------------------
         public Node match(Token_Class ExpectedToken)
         {
 
@@ -656,18 +674,16 @@ namespace Tiny_Compiler
 
                 else
                 {
-                    Errors.Error_List.Add("Parsing Error: Expected "
-                        + ExpectedToken.ToString() + " and " +
-                        TokenStream[InputPointer].token_type.ToString() +
-                        "  found\r\n");
+                    Errors.Error_List.Add("Parsing Error: Expected " + ExpectedToken.ToString() + " and " + TokenStream[InputPointer].token_type.ToString() + "  found\r\n");
+                    Console.WriteLine("Parsing Error: Expected " + ExpectedToken.ToString() + " and " + TokenStream[InputPointer].token_type.ToString() + "  found\r\n");
                     InputPointer++;
                     return null;
                 }
             }
             else
             {
-                Errors.Error_List.Add("Parsing Error: Expected "
-                        + ExpectedToken.ToString() + "\r\n");
+                Errors.Error_List.Add("Parsing Error: Expected " + ExpectedToken.ToString() + "\r\n");
+                Console.WriteLine("Parsing Error: Expected " + ExpectedToken.ToString() + "\r\n");
                 InputPointer++;
                 return null;
             }
