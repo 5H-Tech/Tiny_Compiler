@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Tiny_Compiler
 {
-   
+    
     public class Node
     {
         public List<Node> Children = new List<Node>();
@@ -21,6 +21,7 @@ namespace Tiny_Compiler
     public class Parser
     {
         bool sime = false;
+        bool returnCall = false;
         int InputPointer = 0;
         List<Token> TokenStream;
         public Node root;
@@ -55,6 +56,7 @@ namespace Tiny_Compiler
             mainFunc.Children.Add(match(Token_Class.Main));
             mainFunc.Children.Add(match(Token_Class.LParanthesis));
             mainFunc.Children.Add(match(Token_Class.RParanthesis));
+            returnCall = false;
             mainFunc.Children.Add(Body());
             return mainFunc;
         }
@@ -66,8 +68,10 @@ namespace Tiny_Compiler
                 if (Token_Class.Idenifier == TokenStream[InputPointer + 1].token_type)
                 {
                     userFunc.Children.Add(Func_dec());
+                    returnCall = false;
                     userFunc.Children.Add(Body());
                     userFunc.Children.Add(UserFunc());
+
                     return userFunc;
                 }
                 else
@@ -142,6 +146,8 @@ namespace Tiny_Compiler
             Node func_body = new Node("Body");
             func_body.Children.Add(match(Token_Class.LeftPracit));
             func_body.Children.Add(Stat_Seq());
+            if(!returnCall)
+                Errors.Error_List.Add("Missing Return Statement  \r\n");
             func_body.Children.Add(match(Token_Class.RightPracit));
             return func_body;
         }
@@ -187,7 +193,7 @@ namespace Tiny_Compiler
                         }
                         else
                         {
-                            Errors.Error_List.Add("Missing Simecolon  \r\n");
+                            Errors.Error_List.Add("Parsing Error: Missing Simecolon  \r\n");
                             return null;
                         }
 
@@ -198,7 +204,7 @@ namespace Tiny_Compiler
                     sime = false;
                     if (Token_Class.Semicolon == TokenStream[InputPointer ].token_type)
                     {
-                        Errors.Error_List.Add("Expected statement and found Semicolon  \r\n");
+                        Errors.Error_List.Add("Parsing Error: Expected statement and found Semicolon  \r\n");
                         return null;
                     }
                     state.Children.Add(Statement());
@@ -241,6 +247,7 @@ namespace Tiny_Compiler
                 else if (Token_Class.Return == TokenStream[InputPointer].token_type)
                 {
                     statement.Children.Add(Return_statement());
+                    returnCall = true;
                 }
 
                 else if (Token_Class.Int == TokenStream[InputPointer].token_type

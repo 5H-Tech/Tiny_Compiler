@@ -14,23 +14,13 @@ namespace Tiny_Compiler
     
     public partial class Form1 : Form
     {
-        public string[] rsrvdwrds = { "read", 
-                                       "write", 
-                                       "repeat", 
-                                       "until", 
-                                       "if", 
-                                       "elseif", 
-                                       "else", 
-                                       "then", 
-                                       "return", 
-                                       "endl", 
-                                       "while", 
-                                       "program", 
-                                       "main" };
+        public string[] rsrvdwrds = { "read", "write", "repeat", 
+                                      "until",  "if",  "elseif", 
+                                      "else", "then", "return", 
+                                      "endl",  "while",  "program", 
+                                      "main","end" };
 
-        public string[] dtatyps = { "int",
-                                    "float", 
-                                    "string" };
+        public string[] dtatyps = { "int","float", "string" };
 
         public void CheckKeyword(string word, Color color, int startIndex)
         {

@@ -16,7 +16,7 @@ int main()
 		z1 := 5;
 	else
         	z1 := counter;
-	end;                                                                                  
+	end                                                                                  
         string z2 := "some one";                                                                 
 	write counter;
 	return 0;
