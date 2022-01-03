@@ -392,6 +392,12 @@ namespace Tiny_Compiler
             {
                 factor.Children.Add(match(Token_Class.FloatNum));
             }
+            else if (Token_Class.LParanthesis == TokenStream[InputPointer].token_type)
+            {
+                factor.Children.Add(match(Token_Class.LParanthesis));
+                factor.Children.Add(Expression());
+                factor.Children.Add(match(Token_Class.RParanthesis));                     
+            }
 
             return factor;
         }
@@ -608,7 +614,23 @@ namespace Tiny_Compiler
 
             return null;
         }
-
+        /*
+                        exp
+                        /|\
+                       / | \
+                      /  |  \
+                   exp   -   exp
+                    |         |
+                   term      term
+                    |         /|\
+                    |        / | \
+                  factor term  /  term
+                    |     |        |
+                    1   factor   factor
+                          |        |
+                          4        2
+         
+         */
         Node Expression()
         {
             Node Ex = new Node("Expression");
