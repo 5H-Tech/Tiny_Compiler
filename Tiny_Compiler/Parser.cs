@@ -548,9 +548,12 @@ namespace Tiny_Compiler
 
             CallArgList.Children.Add(match(Token_Class.LParanthesis));
 
-            if (Token_Class.Idenifier == TokenStream[InputPointer].token_type)
+            if (Token_Class.Idenifier == TokenStream[InputPointer].token_type
+                || Token_Class.Number == TokenStream[InputPointer].token_type
+                || Token_Class.FloatNum == TokenStream[InputPointer].token_type
+                || Token_Class.String == TokenStream[InputPointer].token_type)
             {
-                CallArgList.Children.Add(match(Token_Class.Idenifier));
+                CallArgList.Children.Add(Expression());
                 CallArgList.Children.Add(ArgumentsCall());
             }
 
@@ -568,7 +571,7 @@ namespace Tiny_Compiler
             if (Token_Class.Comma == TokenStream[InputPointer].token_type)
             {
                 ArgumentsCall.Children.Add(match(Token_Class.Comma));
-                ArgumentsCall.Children.Add(match(Token_Class.Idenifier));
+                ArgumentsCall.Children.Add(Expression());
                 ArgumentsCall.Children.Add(ArgCall());
                 return ArgumentsCall;
             }

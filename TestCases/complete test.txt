@@ -21,7 +21,7 @@ int main()
 	write counter;
 	/* complicated equation */    
 	float z1 := 3*2*2+1/2-5.3;
-	/*z1 := z1 + sum(1,y);*/
+	z1 := z1 + sum(1,y);
 	if  z1 > 5 || z1 < counter && z1 = 1 then 
 		write z1;
 	elseif z1 < 5 then
