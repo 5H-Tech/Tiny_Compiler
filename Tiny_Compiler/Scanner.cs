@@ -48,7 +48,6 @@ namespace Tiny_Compiler
             ReservedWords.Add("end", Token_Class.END);
           
 
-            Operators.Add(".", Token_Class.Dot);
             Operators.Add(";", Token_Class.Semicolon);
             Operators.Add(",", Token_Class.Comma);
             Operators.Add("(", Token_Class.LParanthesis);
@@ -83,7 +82,7 @@ namespace Tiny_Compiler
                 char CurrentChar = SourceCode[i];
                 string CurrentLexeme = null;
 
-                if (CurrentChar == ' ' || CurrentChar == '\r' || CurrentChar == '\n')
+                if (CurrentChar == ' ' || CurrentChar == '\r' || CurrentChar == '\n' )
                     continue;
 
                 if (char.IsLetter(SourceCode[i])) //if you read a character
@@ -171,8 +170,7 @@ namespace Tiny_Compiler
                             break;
                         }
                         CurrentChar = SourceCode[j];
-                        if (CurrentChar == '\r' || CurrentChar == '\n')
-                            break;
+                        
                         if (CurrentChar == '\"')
                         {
                             CurrentLexeme += CurrentChar;
@@ -198,8 +196,11 @@ namespace Tiny_Compiler
             //Is it a reserved word?
             if (ReservedWords.ContainsKey(Lex))
             {
-                Tok.token_type = ReservedWords[Lex];
-                Tokens.Add(Tok);
+                if (Lex != "endl" )
+                {
+                    Tok.token_type = ReservedWords[Lex];
+                    Tokens.Add(Tok);
+                }
             }
             else if (isIdentifier(Lex))
             {
@@ -302,7 +303,7 @@ namespace Tiny_Compiler
         bool isstring(string lex)
         {
             bool isValid = false;
-            var iden = new Regex("^\"(.*)\"$");
+            var iden = new Regex("^\"(.|\n)*\"$");
             if (iden.IsMatch(lex))
             {
                 isValid = true;
@@ -332,7 +333,7 @@ namespace Tiny_Compiler
         bool iscomment(string lex)
         {
             bool isValid = false;
-            var iden = new Regex("^/\\*(.*)\\*/$");
+            var iden = new Regex("^/\\*(.|\n)*\\*/$");
             if (iden.IsMatch(lex))
             {
                 isValid = true;
