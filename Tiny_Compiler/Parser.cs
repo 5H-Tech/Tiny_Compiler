@@ -614,8 +614,7 @@ namespace Tiny_Compiler
 
             return null;
         }
-        /*
-                        exp
+        /*              exp
                         /|\
                        / | \
                       /  |  \
@@ -628,9 +627,7 @@ namespace Tiny_Compiler
                     |     |        |
                     1   factor   factor
                           |        |
-                          4        2
-         
-         */
+                          4        2         */
         Node Expression()
         {
             Node Ex = new Node("Expression");
