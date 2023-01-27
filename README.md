@@ -1,5 +1,5 @@
 # Tiny_Compiler
-**It Is A Simpl compiler for Tiny Programming Language**
+**The compiler only performs the first three phases of the compilation process for Tiny Programming Language.**
 the Compiler only do the firest 3 phases of the compileing you can refare to Documets 
 * [ MileStone 1 The DFA Doc](https://github.com/HadyAhmed00/Tiny_Compiler/blob/main/Docs/8%20-%20TINY%20DFAs.pdf)
 * [ MileStone 1 The RE Doc](https://github.com/HadyAhmed00/Tiny_Compiler/blob/main/Docs/8%20-%20TINY%20Regular%20Expressions.pdf)
