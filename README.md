@@ -9,7 +9,7 @@ the Compiler only do the firest 3 phases of the compileing you can refare to Doc
 | ------------- | ------------- |
 | Hady Ahmed Abd-Elsalame  | [HadyAhmed00](https://github.com/HadyAhmed00)  |
 | Hady Atef saeed  | [hady-o](https://github.com/hady-o)  |
-| Wassem Abdo Fahee  |[waseem2023](https://github.com/waseem2023)  |
+| Wassem Abdo Fathy  |[waseem2023](https://github.com/waseem2023)  |
 
 ## Sample Output :
 
